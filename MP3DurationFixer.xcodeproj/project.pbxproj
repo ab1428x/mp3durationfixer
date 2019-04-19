@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		69B69F202265F9D000682DE5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B69F1F2265F9D000682DE5 /* main.swift */; };
+		69B69F282265FBE800682DE5 /* MP3FileFixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B69F272265FBE800682DE5 /* MP3FileFixer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		69B69F1C2265F9D000682DE5 /* MP3DurationFixer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MP3DurationFixer; sourceTree = BUILT_PRODUCTS_DIR; };
 		69B69F1F2265F9D000682DE5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		69B69F272265FBE800682DE5 /* MP3FileFixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MP3FileFixer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				69B69F1F2265F9D000682DE5 /* main.swift */,
+				69B69F272265FBE800682DE5 /* MP3FileFixer.swift */,
 			);
 			path = MP3DurationFixer;
 			sourceTree = "<group>";
@@ -119,6 +122,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69B69F282265FBE800682DE5 /* MP3FileFixer.swift in Sources */,
 				69B69F202265F9D000682DE5 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
