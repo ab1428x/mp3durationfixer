@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6927C1042269FFFE00BB15D8 /* FileNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6927C1032269FFFE00BB15D8 /* FileNavigator.swift */; };
 		69B69F202265F9D000682DE5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B69F1F2265F9D000682DE5 /* main.swift */; };
 		69B69F282265FBE800682DE5 /* MP3FileFixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B69F272265FBE800682DE5 /* MP3FileFixer.swift */; };
 /* End PBXBuildFile section */
@@ -24,6 +25,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6927C1032269FFFE00BB15D8 /* FileNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileNavigator.swift; sourceTree = "<group>"; };
 		69B69F1C2265F9D000682DE5 /* MP3DurationFixer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = MP3DurationFixer; sourceTree = BUILT_PRODUCTS_DIR; };
 		69B69F1F2265F9D000682DE5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		69B69F272265FBE800682DE5 /* MP3FileFixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MP3FileFixer.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			children = (
 				69B69F1F2265F9D000682DE5 /* main.swift */,
 				69B69F272265FBE800682DE5 /* MP3FileFixer.swift */,
+				6927C1032269FFFE00BB15D8 /* FileNavigator.swift */,
 			);
 			path = MP3DurationFixer;
 			sourceTree = "<group>";
@@ -123,6 +126,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				69B69F282265FBE800682DE5 /* MP3FileFixer.swift in Sources */,
+				6927C1042269FFFE00BB15D8 /* FileNavigator.swift in Sources */,
 				69B69F202265F9D000682DE5 /* main.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

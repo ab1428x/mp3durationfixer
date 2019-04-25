@@ -21,8 +21,15 @@ class MP3FileFixer {
     var data: NSData!
     var fileSize = 0
     
+    var fileEndingBytesStartPosition = -1
+    var tagOccurencePosition = -1
+    
+    let filePath = "/Users/Jay/Desktop/bewar.mp3"
+    //let url = URL.init(fileURLWithPath: filePath)
+    
     init(url: URL) {
-        filePathUrl = url
+        //filePathUrl = url
+        filePathUrl = URL.init(fileURLWithPath: filePath)
     }
     
     func FixMP3File() -> Bool {
@@ -54,40 +61,64 @@ class MP3FileFixer {
         return true
     }
     
-    private func getFileEnding (bytes: [UInt8]) -> [UInt8]? {
+    func FixMP3File_TEST() -> Bool {
         
-        var foundValues = 0
-        var reveresedPosition = 0
-        
-        for byte in bytes.reversed() {
+        if let data = NSData(contentsOf: filePathUrl) {
+            self.data = data
             
-            switch foundValues {
-            case 0:
-                if (byte.description == LettersInByteValues.G_Letter) {
-                    foundValues = 1
-                }
-                break
-                
-            case 1:
-                if (byte.description == LettersInByteValues.A_Letter) {
-                    foundValues = 2
-                }
-                break
-                
-            case 2:
-                if (byte.description == LettersInByteValues.T_Letter) {
-                    foundValues = 3
-                }
-            default:
-                break
+            var buffer = [UInt8].init(repeating: 0, count: data.length)
+            data.getBytes(&buffer, length: data.length)
+            fileBytes = buffer
+            fileSize = fileBytes.count
+            
+            guard let fileEndBytes = getFileEnding(bytes: fileBytes) else {
+                return false
             }
             
+            guard let _ = findFirstOccurenceOf(fileEndingBytes: fileEndBytes, in: fileBytes) else {
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    private func getFileEnding (bytes: [UInt8]) -> [UInt8]? {
+        
+        let reversedBytes = Array(bytes.reversed())
+        
+        var reveresedPosition = 0
+        var fileEndingFound = false
+        var matchFound = false
+        var fileEndingBytes = [UInt8]()
+        
+        for byte in reversedBytes {
+            
+            if (!fileEndingFound && byte.description == LettersInByteValues.G_Letter
+                && reversedBytes.count >= reveresedPosition + 2
+                && reversedBytes[reveresedPosition+1].description == LettersInByteValues.A_Letter
+                && reversedBytes[reveresedPosition+2].description == LettersInByteValues.T_Letter) {
+                
+                fileEndingBytesStartPosition = bytes.count - reveresedPosition - 3
+                fileEndingBytes = Array(bytes[fileEndingBytesStartPosition...bytes.count-1])
+                fileEndingFound = true
+                
+            } else if (fileEndingFound && byte.description == LettersInByteValues.G_Letter
+                && reversedBytes.count >= reveresedPosition + 2
+                && reversedBytes[reveresedPosition+1].description == LettersInByteValues.A_Letter
+                && reversedBytes[reveresedPosition+2].description == LettersInByteValues.T_Letter
+                && reversedBytes[reveresedPosition-1].description == fileEndingBytes[3].description
+                && reversedBytes[reveresedPosition-2].description == fileEndingBytes[4].description
+                && reversedBytes[reveresedPosition-3].description == fileEndingBytes[5].description) {
+                
+                tagOccurencePosition = bytes.count - reveresedPosition - 3
+                matchFound = true
+                break
+            }
             reveresedPosition = reveresedPosition + 1
         }
         
-        if (foundValues == 3) {
-            let fileEndingBytes = Array(bytes[(bytes.count - reveresedPosition - 1)...bytes.count-1])
-            
+        if (fileEndingFound && matchFound) {
             return fileEndingBytes
         } else {
             return nil
@@ -98,16 +129,18 @@ class MP3FileFixer {
         
         var position = 0
         var properFileEndPosition = -1
+        let slicedArray = Array(fileByteArray[tagOccurencePosition...fileEndingBytesStartPosition])
         
-        for byte in fileByteArray {
+        for byte in slicedArray {
             
-            if (byte.description == LettersInByteValues.T_Letter) {
+            position = tagOccurencePosition
+            if (byte.description == LettersInByteValues.T_Letter && position == 1001349) {
                 
                 let subBytesToCompare = Array(fileByteArray[position...(position + fileEndingBytes.count - 1)])
                 
                 if (subBytesToCompare == fileEndingBytes) {
                     
-                    properFileEndPosition = (position + fileEndingBytes.count - 1) > fileSize ? position + fileEndingBytes.count - 1 : properFileEndPosition
+                    properFileEndPosition = (position + fileEndingBytes.count) < fileSize ? position + fileEndingBytes.count - 1 : properFileEndPosition
                     break
                 }
                 
